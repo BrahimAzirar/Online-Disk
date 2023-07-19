@@ -1,0 +1,27 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/online_disk/node_modules
+/online_disk/.pnp
+/online_disk/.pnp.js
+
+# testing
+/online_disk/coverage
+
+# production
+/online_disk/build
+
+# misc
+/online_disk/.DS_Store
+/online_disk/.env.local
+/online_disk/.env.development.local
+/online_disk/.env.test.local
+/online_disk/.env.production.local
+
+/online_disk/npm-debug.log*
+/online_disk/yarn-debug.log*
+/online_disk/yarn-error.log*
+
+
+
+
