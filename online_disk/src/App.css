@@ -1,38 +1,163 @@
-.App {
-  text-align: center;
+@font-face {
+    font-family: OpenSans;
+    src: url(../public/Fonts/Open_Sans/static/OpenSans-Bold.ttf);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: OpenSans,sans-serif;
+    color: #333333;
+    text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#FromLoginJs, #FromSignUpJs {
+    height: 100vh;
+    background-color: #EFEFEF;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#formLogin, #formsignUp {
+    position: relative;
+    width: 500px;
+    height: 450px;
+    padding: 10px;
+    box-shadow: 0 0 10px -2px #AAAAAA;
+    border-radius: 7px;
 }
 
-.App-link {
-  color: #61dafb;
+#formsignUp {
+    width: 700px;
+    height: 500px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#formLogin > div:first-of-type, #formsignUp > div:first-of-type {
+    text-align: center;
+    margin-bottom: 30px;
 }
+
+#formLogin > div:first-of-type svg, #formsignUp > div:first-of-type svg {
+    font-size: 6rem;
+}
+
+#formsignUp > div:last-of-type {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+#formsignUp > div:last-of-type div {
+    margin: 7px 0;
+}
+
+#formsignUp > div:last-of-type div:first-of-type, #formsignUp > div:last-of-type div:nth-child(4),
+#formsignUp > div:last-of-type div:last-of-type {
+    grid-column: span 2;
+}
+
+#formsignUp > div:last-of-type div:first-of-type input, 
+#formsignUp > div:last-of-type div:nth-child(4) input {
+    width: 95%;
+}
+
+#formsignUp > div:last-of-type div:last-of-type button {
+    width: 80% !important;
+    color: white;
+}
+
+#formLogin > div:nth-child(2), #formLogin > div:nth-child(3),
+#formLogin > div:nth-child(4), #formLogin > div:last-of-type {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+#formLogin input, #formsignUp input {
+    width: 90%;
+    padding: 12px 7px;
+    font-size: 1rem;
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px -2px #AAAAAA;
+    border-radius: 5px;
+    border: none;
+}
+
+#formLogin > div:nth-child(4) button, #formsignUp > div:last-of-type div:last-of-type button {
+    width: 70%;
+    font-size: 1.1rem;
+    padding: 7px 0;
+    background-color: #8e8e8e;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#formLogin > div:nth-child(4) button:active, 
+#formsignUp > div:last-of-type div:last-of-type button:active
+ { background-color: #8e8e8e7a; }
+
+#formLogin > div:nth-child(4) button p { color: white; }
+
+#formLogin > div:nth-child(4) button svg {
+    font-size: 1.3rem;
+    fill: white;
+    margin-left: 5px;
+}
+
+#formLogin > div:last-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formLogin > div:last-of-type a:first-child {
+    width: 70%;
+    margin-bottom: 7px;
+    border: 2px solid #333333;
+    border-radius: 5px;
+    padding: 7px 0;
+    text-align: center;
+}
+
+#formLogin > div:last-of-type a:first-child:hover {
+    border-color: #333333b7;
+}
+
+#formLogin > div:last-of-type a:first-child:active {
+    color: #333333b7;
+    border-color: #333333b7;
+}
+
+#formLogin > div:last-of-type a:last-child {
+    margin-top: 7px;
+}
+
+#formLogin > div:last-of-type a:last-child:hover {
+    text-decoration: underline;
+}
+
+.InContentCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#alert {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 400px;
+    text-wrap: balance;
+    padding: 12px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(255, 32, 32);
+    box-shadow: 0 0 10px -2px #AAAAAA;
+}
+
+#alert p { color: white; }
