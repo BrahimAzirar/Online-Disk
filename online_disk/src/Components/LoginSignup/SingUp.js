@@ -1,5 +1,3 @@
-"use strict";
-
 import React, {useEffect, useRef, useState} from 'react';
 import { FiUserPlus } from 'react-icons/fi';
 import '../../App.css';
@@ -47,9 +45,8 @@ export default function SignUp() {
       if (CheckInputIsNotEmpty()) throw new Error("Some fields is empty !");
 
       const result = (await axios.post('http://localhost:3500/auth/Signup', data)).data;
-      console.log(result);
 
-      if (data.err) throw new Error(data.err);
+      if (result.err) throw new Error(result.err);
     } catch (err) {
       setError(err.message); setShowAlert(true);
     }
