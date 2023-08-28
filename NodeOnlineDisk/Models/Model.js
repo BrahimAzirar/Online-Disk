@@ -9,10 +9,10 @@ class Model {
         }
     }
 
-    static async GetData (database, obj = null) {
+    static async GetData (database, obj = null, feilds = null) {
         try {
             const result = await database.collection(this.Collection)
-                .find(obj === null ? {} : obj)
+                .find(obj === null ? {} : obj, feilds)
                 .toArray();
 
             return result;
@@ -29,6 +29,15 @@ class Model {
             console.log(`The error from Model.js in GetData(): ${error.message}`);
         }
     }
+
+    static async UpdateData (database, condition, newData) {
+        try {
+            await database.collection(this.Collection)
+                .updateMany(condition, newData);
+        } catch (error) {
+            console.log(`The error from Model.js in GetData(): ${error.message}`);
+        }
+    };
 };
 
 module.exports = { Model };

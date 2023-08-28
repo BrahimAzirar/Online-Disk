@@ -8,10 +8,17 @@ import { useNavigate } from 'react-router-dom';
 export default function SignUp() {
 
   const [ShowAlert, setShowAlert] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, seterror] = useState('');
 
   useEffect(() => {
     document.title = "SignUp | Online Disk";
+
+    axios.get(`http://localhost:3500/auth/isAuth`, { withCredentials: true })
+      .then(res => res.data.response ? redirect(`/Member/Account/${res.data.user}`) : null)
+      .catch(error => {
+        setShowAlert(true);
+        seterror(error.messsage);
+      });
   }, []);
 
   const SignUpForm = useRef(), ConPass = useRef();
@@ -60,7 +67,7 @@ export default function SignUp() {
 
       if (result.err) throw new Error(result.err);
     } catch (err) {
-      setError(err.message); setShowAlert(true);
+      seterror(err.message); setShowAlert(true);
     }
   };
 
