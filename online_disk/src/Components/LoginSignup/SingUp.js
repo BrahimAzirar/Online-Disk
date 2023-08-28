@@ -3,6 +3,7 @@ import { FiUserPlus } from 'react-icons/fi';
 import '../../App.css';
 import Alert from './Alert';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
 
@@ -14,11 +15,12 @@ export default function SignUp() {
   }, []);
 
   const SignUpForm = useRef(), ConPass = useRef();
+  const redirect = useNavigate();
 
   const SignUpToAccount = async (e) => {
     e.preventDefault();
     const formdata = new FormData(SignUpForm.current);
-    const data = Object.fromEntries(formdata);
+    const data = Object.fromEntries(formdata); data.email_verfy = false;
 
     const CheckPassword = () => {
       const pass = data.password;
@@ -35,16 +37,26 @@ export default function SignUp() {
       return Object.values(data).some(ele => ele === '');
     };
 
+    const emailIsValid = () => {
+      const regex = /[a-zA-z0-9]@(gmail|yahoo|outlook|hotmail|aol|icloud|protonmail).com/g;
+      if (data.email.match(regex) === null) return false;
+      else return true
+    };
+
     try {
+      if (CheckInputIsNotEmpty()) throw new Error("Some fields is empty !");
+
       if (!(data.password === ConPass.current.value))
         throw new Error('The password not valide !!!');
 
       if (!(CheckPassword())) 
-        throw new Error("The password must be his length greater or equal to 8 and contains a letters upper case and some numbers and some symbols (#-!_ &) ");
+        throw new Error("The password must be his length >= 8 and contains a letters upper case or some symbols (#-!_ &) and some numbers ");
 
-      if (CheckInputIsNotEmpty()) throw new Error("Some fields is empty !");
+      if (!emailIsValid()) throw new Error('The email not valid !!');
 
-      const result = (await axios.post('http://localhost:3500/auth/Signup', data)).data;
+      const result = (await axios.post('http://localhost:3500/auth//register/member', data)).data;
+
+      if (result.nextPage) redirect(result.nextPage);
 
       if (result.err) throw new Error(result.err);
     } catch (err) {
