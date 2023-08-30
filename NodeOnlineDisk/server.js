@@ -5,14 +5,17 @@ const session = require('express-session');
 const MongoSessions = require('connect-mongodb-session')(session);
 
 const auth = require('./Routes/Auth');
+const folders = require('./Routes/Folders');
 
 const { MemberModel } = require('./Models/MemberModel');
+const { FoldersModel } = require('./Models/FoldersModel');
 
 const url = 'mongodb://127.0.0.1:27017';
 const database = 'OnlineDisk';
 const app = ex();
 
 MemberModel.setCollection('Members');
+FoldersModel.setCollection('Folders');
 
 MongoClient.connect(url, { useUnifiedTopology: true })
     .then(client => {
@@ -33,6 +36,7 @@ MongoClient.connect(url, { useUnifiedTopology: true })
         }));
 
         app.use('/auth', auth);
+        app.use('/folders', folders);
 
         app.listen(3500, console.log('http://localhost:3500'));
 

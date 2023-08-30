@@ -17,7 +17,7 @@ export default function SignUp() {
       .then(res => res.data.response ? redirect(`/Member/Account/${res.data.user}`) : null)
       .catch(error => {
         setShowAlert(true);
-        seterror(error.messsage);
+        seterror(error.message);
       });
   }, []);
 

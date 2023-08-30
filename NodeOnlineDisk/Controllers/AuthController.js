@@ -1,16 +1,20 @@
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const { MemberModel } = require('../Models/MemberModel');
+const { FoldersModel } = require('../Models/FoldersModel');
 
 const register = async (req, res) => {
     try {
         const { db } = req.app.locals;
         const data = req.body;
+        const maiFolder = { name: 'Home', member: data.username, path: 'Home/', content: [] };
         const hashing_password = await bcrypt.hash(data.password, 10);
         await MemberModel.InsertData(db, { ...data, password: hashing_password });
+        await FoldersModel.InsertData(db, maiFolder);
         res.status(200).json({ nextPage: `/email_verify/${data.username}` });
     } catch (error) {
         console.log(`The error from AuthController.js in register: ${error.message}`);
+        res.json({ err: 'error in the server try later !!!' });
     };
 };
 
@@ -118,7 +122,7 @@ const EmailVerification = async (req, res) => {
 const IsAuth = (req, res) => {
     try {
         if (req.session.user.isAuth) res.status(200)
-            .json({ response: true, user: req.session.user.user_data.username });
+            .json({ response: true, user: req.session.user.user_data });
         else res.status(200).json({ response: false });
     } catch (error) {
         console.log(`The error from AuthController.js in IsAuth: ${error.message}`);
@@ -154,4 +158,30 @@ const login = async (req, res) => {
     };
 };
 
-module.exports = { register, UserIsExist, SendEmailVerification, EmailVerification, IsAuth, login };
+const emailIsExist = async (req, res) => {
+    try {
+        const { db } = req.app.locals;
+        const email = req.params.email;
+        const result = await MemberModel.GetData(db, { email });
+        console.log(result);
+    } catch (error) {
+        console.log(`The error from AuthController.js in emailIsExist: ${error.message}`);
+        res.json({ err: 'error in the server try later !!!' });
+    };
+};
+
+const LogOut = (req, res) => {
+    try {
+        req.session.destroy(err => {
+            if (err) throw new Error(err);
+        });
+        res.status(200).json({ response: true });
+    } catch (error) {
+        console.log(`The error from AuthController.js in LogOut: ${error.message}`);
+        res.json({ err: 'error in the server try later !!!' });
+    }
+}
+
+module.exports = { 
+    register, UserIsExist, SendEmailVerification, EmailVerification, IsAuth, login, emailIsExist, LogOut
+};

@@ -18,5 +18,7 @@ auth.get('/SendEmailVerification/:username', AuthController.SendEmailVerificatio
 auth.get('/EmailVerification/:username', AuthController.EmailVerification);
 auth.get('/isAuth', AuthController.IsAuth);
 auth.post('/login', AuthController.login);
+auth.get('/emailIsExist/:email', AuthController.emailIsExist);
+auth.get('/logout', AuthController.LogOut);
 
 module.exports = auth;

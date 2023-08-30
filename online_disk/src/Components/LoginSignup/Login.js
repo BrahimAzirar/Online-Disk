@@ -17,7 +17,7 @@ export default function Login() {
     document.title = 'Login | Online Disk';
 
     axios.get(`http://localhost:3500/auth/isAuth`, { withCredentials: true })
-      .then(res => res.data.response ? redirect(`/Member/Account/${res.data.user}`) : null)
+      .then(res => res.data.response ? redirect(`/Member/Account/${res.data.user.username}`) : null)
       .catch(error => {
         setShowAlert(true);
         seterror(error.messsage);

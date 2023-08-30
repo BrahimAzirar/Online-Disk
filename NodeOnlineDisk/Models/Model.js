@@ -23,8 +23,8 @@ class Model {
 
     static async InsertData (database, obj = null) {
         try {
-            await database.collection(this.Collection)
-                .insertOne(obj);
+            const result = await database.collection(this.Collection).insertOne(obj);
+            return result.insertedId;
         } catch (error) {
             console.log(`The error from Model.js in GetData(): ${error.message}`);
         }
